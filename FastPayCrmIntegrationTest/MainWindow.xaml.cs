@@ -91,7 +91,7 @@ namespace FastPayCrmIntegrationTest
             string apiendpoint = "ss_controller_war/apiController/generic/campaign/getCampaignList";
             string timestamp = (DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond).ToString(); 
             string messagestr = GenerateListCampaignJsonString();
-            string privatekeystr = File.ReadAllText(@"C:\Temp\Clientprivate.pem");
+            string privatekeystr = File.ReadAllText(PrivateKeyFileLocation.Text);
 
             string signature = SignatureHelper.ComputeSHA256withRSA3(timestamp + PmkTextBox.Text + messagestr, privatekeystr);
 
@@ -122,12 +122,12 @@ namespace FastPayCrmIntegrationTest
             string apiendpoint = "ss_controller_war/apiController/generic/campaign/getCampaignList";
             string timestamp = (DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond).ToString();
             string messagestr = GenerateListCampaignJsonString();
-            string privatekeystr = File.ReadAllText(@"C:\Temp\Clientprivate.pem");
+            string privatekeystr = File.ReadAllText(PrivateKeyFileLocation.Text);
 
             string signature = SignatureHelper.ComputeSHA256withRSA3(timestamp + PmkTextBox.Text + messagestr, privatekeystr);
             string payload = GeneratePayLoadJsonStr(signature, timestamp, PmkTextBox.Text, messagestr);
 
-            var httpClient = new HttpClient();
+            HttpClient httpClient = new HttpClient();
 
             StringContent jsoncontent = new StringContent(payload);
             jsoncontent.Headers.ContentType = new MediaTypeHeaderValue("text/json");
@@ -165,7 +165,8 @@ namespace FastPayCrmIntegrationTest
             });
 
             return jsonstr;
-        }
+        }       
+
 
         private static string GeneratePayLoadJsonStr(string signaturestr, string timestampstr,string pmkstr, string messagestr)
         {
@@ -180,6 +181,62 @@ namespace FastPayCrmIntegrationTest
             return jsonstr;
         }
 
-        
+        private async void BtnValidateCoupon_Click(object sender, RoutedEventArgs e)
+        {
+            string apiendpoint = "ss_controller_war/apiController/generic/coupon/doValidateCoupon";
+            string timestamp = (DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond).ToString();
+            string messagestr = GenerateValidateCouponMessageString();
+            string privatekeystr = File.ReadAllText(PrivateKeyFileLocation.Text);
+
+            string signature = SignatureHelper.ComputeSHA256withRSA3(timestamp + PmkTextBox.Text + messagestr, privatekeystr);
+
+            string payload = GeneratePayLoadJsonStr(signature, timestamp, PmkTextBox.Text, messagestr);
+
+            HttpClient httpClient = new HttpClient();
+
+            StringContent jsoncontent = new StringContent(payload);
+            jsoncontent.Headers.ContentType = new MediaTypeHeaderValue("text/json");
+            jsoncontent.Headers.Add("pid", PidTextBox.Text);
+            jsoncontent.Headers.Add("i_pid", $"{PidTextBox.Text}WEB");
+            jsoncontent.Headers.Add("i_mode", "INTEGRATE");
+
+            HttpResponseMessage result = await httpClient.PostAsync(ApiUrlTextBox.Text + apiendpoint, jsoncontent);
+
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                string test = await result.Content.ReadAsStringAsync();
+
+                ResponseModel responsedata = JsonConvert.DeserializeObject<ResponseModel>(test);
+
+
+            }
+
+        }
+
+        private void BtnRedeemCoupon_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private string GenerateValidateCouponMessageString()
+        {
+            ValidateCouponReqModel validateCouponRequest = new ValidateCouponReqModel
+            {
+                SuperksId = SuperksIdTextBox.Text,
+                TerminalAccountId = TerminalAccountIdTextBox.Text,
+                PartnerCode = PidTextBox.Text,
+                CouponDetail = new CouponDetailModel
+                {
+                    CouponNo = CouponNumberTextBox.Text,
+                    DiscountDetail = new CouponReqDiscountDetailModel
+                    {
+                        Amount = CouponAmountTextBox.Text,
+                        CurrencyCode = "458"
+                    }
+                }
+            };
+
+            return JsonConvert.SerializeObject(validateCouponRequest);
+        }
     }
 }

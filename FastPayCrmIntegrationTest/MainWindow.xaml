@@ -17,7 +17,12 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="180"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
@@ -37,28 +42,37 @@
                 <TextBlock Text="Terminal Account Id : "></TextBlock>
                 <TextBox x:Name="TerminalAccountIdTextBox" Text="80020000000000100000001"></TextBox>
             </StackPanel>
-            <StackPanel Grid.Row="4" Orientation="Vertical" VerticalAlignment="Center">
-                <TextBlock Text="Superks Server Public Key : "></TextBlock>
-                <TextBox x:Name="SPKTextBox" TextWrapping="Wrap" Margin="5"
-                         Text="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwbuhTXKmLjAfPgVZFV0k4jfeLffxdu5PTkb+0uocW1FGRYxYQ+tv6bQ/LVYblOfF57UnMVpPSdqQLLpjNXerlmZQmKsTbYUUsA7+TcwKVQGysm+UKWSpdGAEF0g79GduI4EMlTI/5Yr3xXZlCYyxwQIxe3t7k3XUnZl5QeyGddQ2zHJ4SYFxO8vtCliPxwt8WaS6rWVsKvwiwFi/HW0YcNkJKWV0Ix0aEcMi1/xPNgh3S4S6BrkzY/kSV5w6SUKPbpNyuE3ORsPAbhh+PjIJg+QbQKq17cwfapnYhYKnj8JeZHpOi3mxmIuEfbm/3Ke31SbLXqUFSrVoXyt1pV4sDwIDAQAB"></TextBox>
+            <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Private Key File : "></TextBlock>
+                <TextBox x:Name="PrivateKeyFileLocation" Text="C:\Temp\Clientprivate.pem"></TextBox>
             </StackPanel>
             <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center">
                 <Button x:Name="BtnListCampaign" Content="Campaigns Static" Margin="5" Padding="5,0" Click="BtnListCampaign_Click"></Button>
                 <Button x:Name="BtnViewCampaign" Content="List Campaigns 1" Margin="5" Padding="5,0" Click="BtnViewCampaign_Click"></Button>
                 <Button x:Name="BtnListCampaign2" Content="List Campaigns 2" Margin="5" Padding="5,0" Click="BtnListCampaign2_Click"></Button>
             </StackPanel>
+            <StackPanel Grid.Row="6" Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Text="Member Id : "></TextBlock>
+                <TextBox x:Name="SuperksIdTextBox" TextWrapping="Wrap"
+                         Text="hQVDUFYwMYgDAgEziU4BEDgwMDIwAiY4MDAyMDAwMDAwMDY2AxBCcmlhbgUiNjAxNDk2NjYzMjUGOGJyaWFuY2hhaUBnbWFpbC5jb20HCDEzNDYIFGFuZHJvaWQ="></TextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="7" Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Text="Coupon Number : "></TextBlock>
+                <TextBox x:Name="CouponNumberTextBox"
+                         TextWrapping="Wrap"
+                         Text="hQVDUFYwMWEITwZDT1VQT06IBAECMTSJLhRyOTdhMGZjZmQtNGViMi00NmI0LWJkMTktMzRjNWZiMzI0OTg0ExJDT1VQT04="></TextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="8" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Coupon Amount : "></TextBlock>
+                <TextBox x:Name="CouponAmountTextBox" Text="100"></TextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="9" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button x:Name="BtnValidateCoupon" Content="Validate Coupon" Margin="5" Padding="5,0" Click="BtnValidateCoupon_Click"></Button>
+                <Button x:Name="BtnRedeemCoupon" Content="Redeem Coupon" Margin="5" Padding="5,0" Click="BtnRedeemCoupon_Click"></Button>
+            </StackPanel>
         </Grid>
         <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="600"/>
-                <RowDefinition Height="40"/>
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center">
-                <TextBlock Text="Client Private Key : "></TextBlock>
-                <TextBox x:Name="ClientPrivateKeyTextBox" TextWrapping="Wrap" Margin="5"
-                         Text="MIIEpAIBAAKCAQEAyeSeez8bBXre1AwYGbE95Aw0UO3phplcfdi3kqXP9xFHw4MjI7eKkNNisvhHytp/qaUFZtqPM5caHfcY8doucMyiIIV5Ncyw4dlBl3bn8WshoFuyWqN4nhmWS+S0mZVTcQPD1VLFpjvw4BNwv+0IJTKkbs9ZVuS+58ZSA19l5GxeabHG40SKLVsj0KJC+vsppVveoYUkKdn27XRT9GTlNCeXUlF/q2GARjzh6SS9RYexx3Y8SFlejIe4BONFAfykT5ecByLZ8Kktg26mhUNr3ZwdqdOZ+HX471Ec5Vj20mS+lhZi9+6GPcSHjkep/0waAOBfx0scDLCoyhfyn+0dvwIDAQABAoIBAGOYfn36MZBQfuBIXxM9lnSLeLt7wjn+KdyDLnwPhDozsh1G8ezKvHaZcRUs2e2+QEAmAjYtF3uxzNZ/cTTOFx7aNBiq/5KEubWQgYUAyYcU/G+pDKEeB4CmyrgByP4C5jjYTKFNxectprRDotlrSxtekjN/4mi1S1/3O7oiM5es5QMgp96VKxiJNQRe2x+jQbXpUnHdsodtVALtGb3qtw6gUgH8SlM3cSmvfQH/tEWDsq85XlF+VckLsC0BrhG/QRXtlCeYg9KCK+Htc/NCqv1vtUIMN1wjnMx2QxRPny/LqZuUpUQQ+131T1t6O9Y0H4SFoBaghfgyCldSyJejNNECgYEA92jIe2WNXCTq1rbJaHH+Gpe5tiGOt+O+tiO0IQm/GyCckesgLfpU12VhGLi6RQPEXvcgDSLL7P/pkd4untyZQ/fhUn/bWCxQmZUtmZylX6V4/LNO8DBm3UP5V7/oGs6mVXq6tWCK3BZsefeumqZCExJOTOmRdg+2LXIxQ0cQ1LMCgYEA0Oc+H8WjNll9CZOh10zuy4xNijwFp5rhoLmGc/tBtasGnxRxkOphTcLPqlPWQIil8eLRUWkTMKfMNVE2Y/QH1W4BPdj1quMBgTHyArA30ehk3IC+tZfD6Hf97qZQchp+j9FV4AqZZyxDiL5yO9x75SGeeA9+uzAVVinzMlQ40MUCgYEA1eTWJrCGRNp52QWQHOcoay8vVEGw1FRmJau6aDG38akBE7o2SOm6fbnc9vWFvHLkS8HVCOZDbXNWKFDw91D6hGOCfsOhC5rMV+s70Ck4Y/d4IOiYX1lJJRRGNlHoRXzRGuePEY4UnvAX+l5iqrsANuLFpQLtSieNNb8azfJbn7cCgYAYD0n8ZsrRa6UXAUXWginOj64uiZMtJo1t8XAm031R6wysLbKWuifSyOkZ+OXoMNTL8w+gjLWFGQ5P5baZ9HUig7To5qAEunhl5Na2sIz9RAK50qokSAJsN8WrQsRpH9wLvFRjpVTdqR9uFGEbu90ZGrIhqccyz+rlLZew6DpS8QKBgQC9/2tL6rXkQJOB2jItaPNGou5gwzRRUznXJmxbMCXEFe4hllSDqJ5QTB5xyt6HCejy7ua0TorTkRFpiEEELTozFeqtzNuzJ4hdQ/8LNJXMaLaIhPS/i7xzAXQ79I6ZmHVpDzpB7r0MI+EjAMASmxP5rGctDOPFeKxsUkNd4+rU6Q==">                    
-                </TextBox>
-            </StackPanel>
+            
         </Grid>
     </Grid>
 </Window>
